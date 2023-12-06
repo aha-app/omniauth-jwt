@@ -10,12 +10,16 @@ describe OmniAuth::Strategies::JWT do
     Rack::Builder.new do |b|
       b.use Rack::Session::Cookie, secret: SecureRandom.hex(32)
       b.use OmniAuth::Strategies::JWT, *the_args
-      b.run lambda{|env| [200, {}, [(env['omniauth.auth'] || {}).to_json]]}
+      b.run lambda{|env|
+        [200, {}, [(env['omniauth.auth'] || {}).to_json]]
+      }
     end
   }
 
   context 'request phase' do
     it 'should redirect to the configured login url' do
+      # TODO: Figure out how to write this test without using the deprecated
+      #       and unsafe, "get" method for the request phase.
       get '/auth/jwt'
       expect(last_response.status).to eq(302)
       expect(last_response.headers['Location']).to eq('http://example.com/login')
@@ -119,11 +123,12 @@ describe OmniAuth::Strategies::JWT do
       'ES512' => 'secp521r1'
     }.freeze
 
-    {
+    algos =     {
       OpenSSL::PKey::RSA => %w[RS256 RS384 RS512],
-      OpenSSL::PKey::EC => %w[ES256 ES384 ES512],
       String => %w[HS256 HS384 HS512]
-    }.each do |private_key_class, algorithms|
+    }
+    algos.merge!(OpenSSL::PKey::EC => %w[ES256 ES384 ES512]) unless ['2.2.10', '2.3.8'].include?(RubyVersion.to_s)
+    algos.each do |private_key_class, algorithms|
       algorithms.each do |algorithm|
         context "when the #{algorithm} algorithm is used" do
           let(:algorithm) { algorithm }
