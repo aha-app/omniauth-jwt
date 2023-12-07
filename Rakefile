@@ -13,4 +13,11 @@ rescue LoadError
   # NOOP
 end
 
+begin
+  require "rubocop/lts"
+  Rubocop::Lts.install_tasks
+rescue LoadError
+  # NOOP
+end
+
 task default: :spec

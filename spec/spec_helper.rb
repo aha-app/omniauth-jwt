@@ -1,40 +1,40 @@
 # Std Lib
-require 'securerandom'
+require "securerandom"
 
 # 3rd party gems
-require 'rspec/pending_for'
+require "rspec/pending_for"
 begin
-  require 'rack/session'
+  require "rack/session"
 rescue LoadError
   nil # File won't exist in old rack for Ruby 2.2 & 2.3
 end
-require 'rack/test'
-require 'json'
-require 'omniauth'
+require "rack/test"
+require "json"
+require "omniauth"
 begin
-  require 'openssl'
-  require 'openssl/signature_algorithm'
-  require 'ed25519'
+  require "openssl"
+  require "openssl/signature_algorithm"
+  require "ed25519"
 rescue LoadError
   nil # Gem doesn't exist for ancient Rubies 2.2 & 2.3
 end
 
-require 'byebug' if ENV['DEBUG'] == 'true'
+require "byebug" if ENV["DEBUG"] == "true"
 # This does not require "simplecov",
 #   because that has a side-effect of running `.simplecov`
 begin
-  require 'kettle-soup-cover'
+  require "kettle-soup-cover"
 rescue LoadError
   puts "Not analyzing test coverage"
 end
 
-require 'support/hash'
-require 'support/next_instance_of'
+require "support/hash"
+require "support/next_instance_of"
 
-OmniAuth.config.logger = Logger.new('/dev/null')
-require 'omniauth/version'
+OmniAuth.config.logger = Logger.new("/dev/null")
+require "omniauth/version"
 puts "OMNIAUTH VERSION: #{OmniAuth::VERSION}"
-if Gem::Version.new(OmniAuth::VERSION) > Gem::Version.new('2.0')
+if Gem::Version.new(OmniAuth::VERSION) > Gem::Version.new("2.0")
   OmniAuth.config.silence_get_warning = true
   OmniAuth.config.allowed_request_methods |= [:get, :post]
 end
@@ -55,10 +55,10 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  config.order = "random"
 end
 
 # Last thing before loading this library, load simplecov:
-require 'simplecov' if defined?(Kettle::Soup::Cover) && Kettle::Soup::Cover::DO_COV
+require "simplecov" if defined?(Kettle::Soup::Cover) && Kettle::Soup::Cover::DO_COV
 
-require 'omniauth/jwt'
+require "omniauth/jwt"

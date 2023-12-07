@@ -1,0 +1,39 @@
+{
+  "lib/omniauth/strategies/jwt.rb:543932255": [
+    [60, 9, 76, "Lint/RescueException: Avoid rescuing the `Exception` class. Perhaps you meant to rescue `StandardError`?", 967033479]
+  ],
+  "omniauth-jwt2.gemspec:998952283": [
+    [18, 16, 16, "Packaging/GemspecGit: Avoid using git to produce lists of files. Downstreams often need to build your package in an environment that does not have git (on purpose). Use some pure Ruby alternative, like `Dir` or `Dir.glob`.", 1973161220]
+  ],
+  "spec/lib/omniauth/strategies/jwt_spec.rb:2698313308": [
+    [3, 1, 34, "RSpec/FilePath: Spec path should end with `omni_auth/strategies/jwt*_spec.rb`.", 1935033905],
+    [3, 1, 34, "RSpec/SpecFilePathFormat: Spec path should end with `omni_auth/strategies/jwt*_spec.rb`.", 1935033905],
+    [12, 13, 25, "RSpec/DescribedClass: Use `described_class` instead of `OmniAuth::Strategies::JWT`.", 2234488924],
+    [19, 11, 15, "RSpec/ContextWording: Context description should match /^when\\b/, /^with\\b/, or /^without\\b/.", 391893083],
+    [20, 5, 42, "RSpec/MultipleExpectations: Example has too many expectations [2/1].", 4106660663],
+    [29, 11, 16, "RSpec/ContextWording: Context description should match /^when\\b/, /^with\\b/, or /^without\\b/.", 1409468707],
+    [51, 7, 51, "RSpec/MultipleExpectations: Example has too many expectations [2/1].", 4149552871],
+    [51, 7, 531, "RSpec/ExampleLength: Example has too many lines. [6/5]", 2143440997],
+    [91, 3, 3512, "RSpec/MultipleMemoizedHelpers: Example group has too many memoized helpers [10/5]", 2363831099],
+    [110, 7, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [111, 7, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [116, 9, 6, "RSpec/ExpectInHook: Do not use `expect` in `before` hook", 1179768986],
+    [116, 9, 20, "RSpec/StubbedMock: Prefer `allow` over `expect` when configuring a response.", 2951559342],
+    [116, 33, 7, "RSpec/MessageSpies: Prefer `have_received` for setting message expectations. Setup `rack_request` as a spy using `allow` or `instance_spy`.", 1384559950],
+    [130, 5, 56, "Performance/RedundantMerge: Use `algos[OpenSSL::PKey::EC] = %w[ES256 ES384 ES512]` instead of `algos.merge!(OpenSSL::PKey::EC => %w[ES256 ES384 ES512])`.", 2983772293],
+    [133, 9, 846, "RSpec/MultipleMemoizedHelpers: Example group has too many memoized helpers [10/5]", 3520352246],
+    [152, 22, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [160, 5, 310, "RSpec/MultipleMemoizedHelpers: Example group has too many memoized helpers [10/5]", 3501674141],
+    [160, 13, 28, "RSpec/ContextWording: Context description should match /^when\\b/, /^with\\b/, or /^without\\b/.", 1877551307],
+    [170, 18, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [174, 5, 515, "RSpec/MultipleMemoizedHelpers: Example group has too many memoized helpers [10/5]", 1246671601],
+    [185, 9, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [189, 18, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [193, 5, 537, "RSpec/MultipleMemoizedHelpers: Example group has too many memoized helpers [10/5]", 3770030886],
+    [205, 9, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441],
+    [209, 18, 7, "RSpec/NamedSubject: Name your test subject if you need to reference it explicitly.", 1892732441]
+  ],
+  "spec/support/hash.rb:812296649": [
+    [2, 3, 110, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 3570181400]
+  ]
+}
