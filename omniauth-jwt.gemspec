@@ -23,8 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
+  spec.add_development_dependency "rack"
   spec.add_development_dependency "rack-test"
-  
+  spec.add_development_dependency "rack-session"
+
   spec.add_dependency "jwt", ">= 2.0.0"
   spec.add_dependency "omniauth", "~> 1.1"
 end

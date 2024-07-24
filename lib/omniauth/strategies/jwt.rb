@@ -6,11 +6,11 @@ module OmniAuth
     class JWT
       class ClaimInvalid < StandardError; end
       class BadJwt < StandardError; end
-      
+
       include OmniAuth::Strategy
-      
+
       args [:secret]
-      
+
       option :secret, nil
       option :decode_options, {}
       option :uid_claim, 'email'
@@ -18,11 +18,11 @@ module OmniAuth
       option :info_map, {"name" => "name", "email" => "email"}
       option :auth_url, nil
       option :valid_within, nil
-      
+
       def request_phase
         redirect options.auth_url
       end
-      
+
       def decoded
         begin
           @decoded ||= ::JWT.decode(request.params['jwt'], options.secret, true, options.decode_options).first
@@ -36,7 +36,7 @@ module OmniAuth
         raise ClaimInvalid.new("'iat' timestamp claim is too skewed from present.") if options.valid_within && (Time.now.to_i - @decoded["iat"]).abs > options.valid_within
         @decoded
       end
-      
+
       def callback_phase
         super
       rescue BadJwt => e
@@ -44,13 +44,19 @@ module OmniAuth
       rescue ClaimInvalid => e
         fail! :claim_invalid, e
       end
-      
-      uid{ decoded[options.uid_claim] }
-      
+
+      uid do
+        if options.uid_claim.is_a?(Array)
+          options.uid_claim.map { |field| decoded[field.to_s] }.compact.first
+        else
+          decoded[options.uid_claim]
+        end
+      end
+
       extra do
         {:raw_info => decoded}
       end
-      
+
       info do
         options.info_map.inject({}) do |h,(k,v)|
           h[k.to_s] = decoded[v.to_s]
@@ -58,7 +64,7 @@ module OmniAuth
         end
       end
     end
-    
+
     class Jwt < JWT; end
   end
 end

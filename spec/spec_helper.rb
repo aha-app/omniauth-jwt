@@ -1,5 +1,6 @@
 $:.unshift File.dirname(__FILE__) + "/../lib"
 require 'rack/test'
+require 'rack/session'
 require 'json'
 
 require 'omniauth/jwt'
@@ -14,7 +15,7 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
-  
+
   include Rack::Test::Methods
 
   # Run specs in random order to surface order dependencies. If you find an
