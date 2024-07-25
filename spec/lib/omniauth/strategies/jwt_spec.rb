@@ -51,10 +51,26 @@ describe OmniAuth::Strategies::JWT do
         encoded = JWT.encode({name: 'Bob', email: 'steve@example.com'}, 'imasecret')
         get '/auth/jwt/callback?jwt=' + encoded
         expect(JSON.parse(last_response.body)["uid"]).to eq("steve@example.com")
+
+        encoded = JWT.encode({name: 'Bob', sub: '', email: 'steve@example.com'}, 'imasecret')
+        get '/auth/jwt/callback?jwt=' + encoded
+        expect(JSON.parse(last_response.body)["uid"]).to eq("steve@example.com")
       end
 
       it "fails if no valid claim is present" do
         encoded = JWT.encode({name: 'Bob', last_name: 'steve@example.com'}, 'imasecret')
+        get '/auth/jwt/callback?jwt=' + encoded
+        expect(last_response.status).to eq(302)
+        expect(last_response.headers['Location']).to match('auth/failure')
+      end
+
+      it "fails if no valid claim is an empty string" do
+        encoded = JWT.encode({name: 'Bob', last_name: 'Alice', email: ''}, 'imasecret')
+        get '/auth/jwt/callback?jwt=' + encoded
+        expect(last_response.status).to eq(302)
+        expect(last_response.headers['Location']).to match('auth/failure')
+
+        encoded = JWT.encode({name: 'Bob', last_name: 'Alice', sub: ''}, 'imasecret')
         get '/auth/jwt/callback?jwt=' + encoded
         expect(last_response.status).to eq(302)
         expect(last_response.headers['Location']).to match('auth/failure')

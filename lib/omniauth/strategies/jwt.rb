@@ -38,6 +38,8 @@ module OmniAuth
       end
 
       def callback_phase
+        raise ClaimInvalid.new("UID claim empty or missing") if uid.to_s.empty?
+
         super
       rescue BadJwt => e
         fail! 'bad_jwt', e
@@ -46,11 +48,7 @@ module OmniAuth
       end
 
       uid do
-        if options.uid_claim.is_a?(Array)
-          options.uid_claim.map { |field| decoded[field.to_s] }.compact.first
-        else
-          decoded[options.uid_claim]
-        end
+        Array(options.uid_claim).map { |field| decoded[field.to_s].to_s.strip }.reject(&:empty?).first
       end
 
       extra do
